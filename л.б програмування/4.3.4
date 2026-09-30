@@ -1,0 +1,54 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main() {
+    srand(time(0)); // Ініціалізація генератора випадкових чисел
+
+    int secretNumber = rand() % 100 + 1; // Число від 1 до 100
+    int guess = 0;
+    int attempts = 0;
+    const int MAX_ATTEMPTS = 7;
+
+    cout << "Вітаю в грі 'Вгадай число'!" << endl;
+    cout << "Я загадав число від 1 до 100." << endl;
+    cout << "У вас є " << MAX_ATTEMPTS << " спроб, щоб його вгадати." << endl;
+    cout << endl;
+
+    while (attempts < MAX_ATTEMPTS) {
+        cout << "Спроба " << (attempts + 1) << "/" << MAX_ATTEMPTS << endl;
+        cout << "Введіть число: ";
+        cin >> guess;
+
+        // Перевірка коректності введення
+        if (guess < 1 || guess > 100) {
+            cout << "Помилка: число має бути від 1 до 100!" << endl;
+            cout << endl;
+            continue;
+        }
+
+        attempts++;
+
+        if (guess == secretNumber) {
+            cout << "Вітаю! Ви вгадали число " << secretNumber << "!" << endl;
+            cout << "Це заняло у вас " << attempts << " спроб(и)." << endl;
+            return 0;
+        }
+        else if (guess < secretNumber) {
+            cout << "Число, яке ви думаєте, менше 50?" << endl;
+            cout << "Підказка: загадане число БІЛЬШЕ за " << guess << endl;
+        }
+        else {
+            cout << "Число, яке ви думаєте, менше 50?" << endl;
+            cout << "Підказка: загадане число МЕНШЕ за " << guess << endl;
+        }
+
+        cout << endl;
+    }
+
+    cout << "На жаль, ви не вгадали за " << MAX_ATTEMPTS << " спроб!" << endl;
+    cout << "Загадане число було: " << secretNumber << endl;
+
+    return 0;
+}

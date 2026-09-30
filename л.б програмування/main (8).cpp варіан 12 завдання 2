@@ -1,0 +1,19 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    double a, b;
+    const double pi = 3.141592653589793;
+
+    cout << "Введiть велику пiввiсь a: ";
+    cin >> a;
+    cout << "Введiть малу пiввiсь b: ";
+    cin >> b;
+
+    double area = pi * a * b;
+
+    cout << "Площа елiпса: " << area << endl;
+
+    return 0;
+}

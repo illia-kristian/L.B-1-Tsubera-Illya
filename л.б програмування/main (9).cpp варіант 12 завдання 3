@@ -1,0 +1,19 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    double amount, rate;
+
+    cout << "Введіть суму: ";
+    cin >> amount;
+
+    cout << "Введіть курс обміну: ";
+    cin >> rate;
+
+    double result = amount * rate;
+
+    cout << "Конвертована сума: " << result << endl;
+
+    return 0;
+}

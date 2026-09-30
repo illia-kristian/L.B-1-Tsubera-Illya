@@ -1,0 +1,36 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int ball;
+
+    cout << "Введіть бал: ";
+    cin >> ball;
+
+    if (ball >= 90 && ball <= 100) {
+        cout << "Оцінка: A";
+    }
+    else if (ball >= 82 && ball <= 89) {
+        cout << "Оцінка: B";
+    }
+    else if (ball >= 74 && ball <= 81) {
+        cout << "Оцінка: C";
+    }
+    else if (ball >= 64 && ball <= 73) {
+        cout << "Оцінка: D";
+    }
+    else if (ball >= 60 && ball <= 63) {
+        cout << "Оцінка: E";
+    }
+    else if (ball >= 35 && ball <= 59) {
+        cout << "Оцінка: FX";
+    }
+    else if (ball >= 1 && ball <= 34) {
+        cout << "Оцінка: F";
+    }
+    else {
+        cout << "Помилка: бал має бути від 1 до 100.";
+    }
+
+    return 0;
+}

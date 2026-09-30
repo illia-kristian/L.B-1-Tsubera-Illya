@@ -1,0 +1,146 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+bool isLeapYear(int year) {
+    return (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
+}
+
+bool isValidDate(int day, int month, int year) {
+    if (year < 1) return false;
+
+    if (month < 1 || month > 12) return false;
+
+    int daysInMonth;
+
+    switch (month) {
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            daysInMonth = 31;
+            break;
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            daysInMonth = 30;
+            break;
+        case 2:
+            daysInMonth = isLeapYear(year) ? 29 : 28;
+            break;
+        default:
+            return false;
+    }
+
+    return (day >= 1 && day <= daysInMonth);
+}
+
+string monthName(int month) {
+    string names[12] = {
+        "Січня", "Лютого", "Березня", "Квітня", "Травня", "Червня",
+        "Липня", "Серпня", "Вересня", "Жовтня", "Листопада", "Грудня"
+    };
+    return names[month - 1];
+}
+
+string weekdayName(int weekdayNumber) {
+    string days[7] = {
+        "Понеділок", "Вівторок", "Середа", "Четвер",
+        "П'ятниця", "Субота", "Неділя"
+    };
+    return days[weekdayNumber - 1];
+}
+
+int calculateWeekdayNumber(int day, int month, int year) {
+    // Zeller's congruence для григоріанського календаря
+    // Результат: 1 = Понеділок, ..., 7 = Неділя
+    int q = day;
+    int m = month;
+    int y = year;
+
+    if (m < 3) {
+        m += 12;
+        y--;
+    }
+
+    int K = y % 100;
+    int J = y / 100;
+
+    int h = (q + (13 * (m + 1)) / 5 + K + K / 4 + J / 4 + 5 * J) % 7;
+
+    // h: 0=Saturday, 1=Sunday, 2=Monday, ..., 6=Friday
+    // Перетворюємо в 1=Monday ... 7=Sunday
+    int weekday = (h + 6) % 7 + 1;
+
+    return weekday;
+}
+
+string zodiacSign(int day, int month) {
+    if ((month == 3 && day >= 21) || (month == 4 && day <= 19))
+        return "Овен";
+    if ((month == 4 && day >= 20) || (month == 5 && day <= 20))
+        return "Телець";
+    if ((month == 5 && day >= 21) || (month == 6 && day <= 20))
+        return "Близнюки";
+    if ((month == 6 && day >= 21) || (month == 7 && day <= 22))
+        return "Рак";
+    if ((month == 7 && day >= 23) || (month == 8 && day <= 22))
+        return "Лев";
+    if ((month == 8 && day >= 23) || (month == 9 && day <= 22))
+        return "Діва";
+    if ((month == 9 && day >= 23) || (month == 10 && day <= 22))
+        return "Терези";
+    if ((month == 10 && day >= 23) || (month == 11 && day <= 21))
+        return "Скорпіон";
+    if ((month == 11 && day >= 22) || (month == 12 && day <= 21))
+        return "Стрілець";
+    if ((month == 12 && day >= 22) || (month == 1 && day <= 19))
+        return "Козоріг";
+    if ((month == 1 && day >= 20) || (month == 2 && day <= 18))
+        return "Водолій";
+    return "Риби";
+}
+
+int main() {
+    int weekdayInput, day, month, year;
+
+    cout << "Введіть номер дня тижня (1=Пн ... 7=Нд): ";
+    cin >> weekdayInput;
+
+    cout << "Введіть число місяця: ";
+    cin >> day;
+
+    cout << "Введіть місяць (1-12): ";
+    cin >> month;
+
+    cout << "Введіть рік: ";
+    cin >> year;
+
+    if (weekdayInput < 1 || weekdayInput > 7) {
+        cout << "Помилка: номер дня тижня має бути від 1 до 7!" << endl;
+        return 1;
+    }
+
+    if (!isValidDate(day, month, year)) {
+        cout << "Помилка: така дата не існує!" << endl;
+        return 1;
+    }
+
+    int actualWeekday = calculateWeekdayNumber(day, month, year);
+
+    if (weekdayInput != actualWeekday) {
+        cout << "Попередження: введений номер дня тижня не відповідає даті." << endl;
+    }
+
+    cout << endl;
+    cout << "Дата: " << weekdayName(actualWeekday) << ", "
+         << day << " " << monthName(month) << " " << year << endl;
+
+    cout << "Знак Зодіаку: " << zodiacSign(day, month) << endl;
+
+    return 0;
+}

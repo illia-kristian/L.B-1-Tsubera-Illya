@@ -1,0 +1,48 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    double a, b, result;
+    char operation;
+
+    cout << "Введіть перше число: ";
+    cin >> a;
+
+    cout << "Введіть операцію (+, -, *, /): ";
+    cin >> operation;
+
+    cout << "Введіть друге число: ";
+    cin >> b;
+
+    switch (operation) {
+        case '+':
+            result = a + b;
+            cout << "Результат: " << a << " + " << b << " = " << result << endl;
+            break;
+
+        case '-':
+            result = a - b;
+            cout << "Результат: " << a << " - " << b << " = " << result << endl;
+            break;
+
+        case '*':
+            result = a * b;
+            cout << "Результат: " << a << " * " << b << " = " << result << endl;
+            break;
+
+        case '/':
+            if (b != 0) {
+                result = a / b;
+                cout << "Результат: " << a << " / " << b << " = " << result << endl;
+            } else {
+                cout << "Помилка: ділення на нуль!" << endl;
+            }
+            break;
+
+        default:
+            cout << "Невірна операція!" << endl;
+            break;
+    }
+
+    return 0;
+}
